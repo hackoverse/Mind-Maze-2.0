@@ -156,7 +156,7 @@
                     answer: ["6", "Six"]
                 }
             ],
-            riddle: "I have walls, a roof and a purpose, yet I was never built like the others, A portable structure has become a destination where people gather.",
+            riddle: "I have walls, a roof and a purpose with the shades of sea, yet I was never built like the others, A portable structure has become a destination where people gather.",
             coordinatorPasswordHash: "5c29bb6d691728a1addd3820fd92b05748447525b8ba9518852512789ab7e7ab" // 8975
         },
 
