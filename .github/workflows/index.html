@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mind Maze 2.0 Registration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="regScreen">
+    <h1>HACKOVERSE</h1>
+    <h2 class="subtitle">Mind Maze 2.0 Registration</h2>
+
+    <input
+      type="text"
+      id="playerNameInput"
+      placeholder="Enter Your Team Name"
+      maxlength="40"
+      autocomplete="off"
+      spellcheck="false"
+    >
+    <p id="regError" style="color:#FF3366;font-size:0.9rem;min-height:20px;margin:10px 0 0;"></p>
+    <button type="button" id="startBtn">Start Game</button>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const nameInput = document.getElementById("playerNameInput");
+      const startBtn = document.getElementById("startBtn");
+      const regError = document.getElementById("regError");
+
+      function startGame() {
+        const name = nameInput.value.trim();
+        if (!name) {
+          regError.textContent = "Please enter your name!";
+          nameInput.focus();
+          return;
+        }
+
+        try {
+          localStorage.setItem("playerName", name);
+          // NOTE: the saved game is NOT cleared here. If the same name registers
+          // again, the game continues (or shows the result if it already ended).
+          // A different name starts a fresh game automatically.
+        } catch {
+          // Ignore storage errors in strict private modes
+        }
+
+        window.location.href = "main.html";
+      }
+
+      startBtn.addEventListener("click", startGame);
+      nameInput.addEventListener("input", () => {
+        regError.textContent = "";
+      });
+      nameInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") startGame();
+      });
+    })();
+  </script>
+</body>
+</html>

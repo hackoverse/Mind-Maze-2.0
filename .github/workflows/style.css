@@ -1,0 +1,568 @@
+/* HACKOVERSE - MIND MAZE 2.0
+ * Minimalist Pure-Black & White Professional UI
+ * Optimized for low-end / budget mobile devices (Zero heavy animations)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --bg-canvas: #000000;
+    --bg-surface: #141414;
+    --bg-input: #1A1A1A;
+    --bg-hover: #242424;
+
+    --border-subtle: #262626;
+    --border-focus: #525252;
+
+    --text-primary: #FFFFFF;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+
+    --btn-bg: #FFFFFF;
+    --btn-text: #000000;
+    --btn-hover: #E4E4E7;
+
+    /* Semantic Colors */
+    --color-success: #4ADE80;
+    --color-success-border: rgba(74, 222, 128, 0.35);
+    --color-success-bg: rgba(34, 197, 94, 0.08);
+
+    --color-error: #F87171;
+    --color-error-border: rgba(248, 113, 113, 0.35);
+    --color-error-bg: rgba(239, 68, 68, 0.08);
+
+    --color-timer: #F59E0B;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ----------------------------------------------------
+ * SMOOTH LIGHTWEIGHT TRANSITION KEYFRAME
+ * ---------------------------------------------------- */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ----------------------------------------------------
+ * BASE LAYOUT & TYPOGRAPHY
+ * ---------------------------------------------------- */
+html {
+    background-color: var(--bg-canvas);
+    color-scheme: dark;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 20px 16px;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Anti-selection for questions & UI */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Keep inputs & textareas typeable on iOS/Android */
+input,
+textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: none;
+}
+
+/* ----------------------------------------------------
+ * MAIN SCREENS (SEAMLESS PURE-BLACK MINIMALISM)
+ * ---------------------------------------------------- */
+#gameScreen,
+#regScreen,
+#endScreen {
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    padding: 32px 24px;
+    background: var(--bg-canvas);
+    border-radius: 20px;
+    position: relative;
+    z-index: 10;
+    animation: fadeSlideIn 0.22s ease-out;
+}
+
+#regScreen,
+#endScreen {
+    max-width: 480px;
+}
+
+/* ----------------------------------------------------
+ * HEADINGS & STATS BAR
+ * ---------------------------------------------------- */
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+}
+
+#playerDisplay {
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+#endMessage {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin: 16px 0 0;
+}
+
+/* Pill-style minimal stats bar */
+.stats-bar {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 10px 22px;
+    margin-bottom: 24px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#timer {
+    color: var(--color-timer);
+    font-weight: 600;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    margin-left: 4px;
+}
+
+#solvedCount {
+    color: var(--color-success);
+    font-weight: 600;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    margin-left: 4px;
+}
+
+/* ----------------------------------------------------
+ * QUESTION DISPLAY CARD
+ * ---------------------------------------------------- */
+pre#codeProblem {
+    font-family: inherit;
+    font-size: 0.98rem;
+    text-align: left;
+    background: var(--bg-surface);
+    padding: 20px 22px;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.65;
+    margin: 0 0 18px;
+}
+
+pre#codeProblem strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* ----------------------------------------------------
+ * INPUTS & TEXTAREA (MATCHING REFERENCE PROMPT BAR)
+ * ---------------------------------------------------- */
+textarea#participantCode {
+    width: 100%;
+    height: 150px;
+    margin: 6px 0 12px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    resize: vertical;
+    padding: 16px 20px;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+textarea#participantCode::placeholder,
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 14px 20px;
+    font-size: 0.98rem;
+    font-family: inherit;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 9999px;
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+#regScreen input[type="text"] {
+    display: block;
+    margin: 22px auto 0;
+    text-align: center;
+}
+
+textarea#participantCode:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--border-focus);
+    background: #1F1F1F;
+    outline: none;
+}
+
+/* GK Dynamic Input Fields (Overrides old inline pink label color cleanly) */
+#answerFields {
+    gap: 10px !important;
+    margin: 12px 0 14px !important;
+}
+
+#answerFields label {
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    font-size: 0.88rem;
+    margin-left: 6px;
+    margin-bottom: -4px;
+}
+
+#answerFields input[type="text"] {
+    border-radius: 14px;
+    padding: 13px 16px;
+}
+
+textarea:disabled,
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Registration Error Override */
+#regError {
+    color: var(--color-error) !important;
+    font-size: 0.88rem;
+}
+
+/* ----------------------------------------------------
+ * OUTPUT BOX (GREEN FOR CORRECT, RED FOR ERROR)
+ * ---------------------------------------------------- */
+#outputBox {
+    margin-top: 22px;
+    background: var(--bg-surface);
+    padding: 18px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    text-align: left;
+    animation: fadeSlideIn 0.18s ease-out;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+#outputBox h4 {
+    margin: 0 0 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+}
+
+#outputDisplay {
+    background: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+    font-family: inherit;
+    font-size: 0.98rem;
+}
+
+/* Correct Answer / Revealed Riddle (Green) */
+#outputBox.correct {
+    background: var(--color-success-bg);
+    border-color: var(--color-success-border);
+}
+
+#outputBox.correct h4 {
+    color: var(--color-success);
+}
+
+#outputBox.correct #outputDisplay {
+    color: var(--color-success);
+    font-weight: 500;
+    font-size: 1.04rem;
+}
+
+/* Wrong Answer / Error (Red) */
+#outputBox.incorrect {
+    background: var(--color-error-bg);
+    border-color: var(--color-error-border);
+}
+
+#outputBox.incorrect h4 {
+    color: var(--color-error);
+}
+
+#outputBox.incorrect #outputDisplay {
+    color: var(--color-error);
+    font-weight: 500;
+}
+
+/* ----------------------------------------------------
+ * BUTTONS & COORDINATOR UNLOCK ICON
+ * ---------------------------------------------------- */
+button,
+#runBtn,
+#startBtn {
+    padding: 13px 34px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    margin-top: 12px;
+    border: 1px solid var(--btn-bg);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 9999px;
+    transition: background-color 0.16s ease, transform 0.12s ease, opacity 0.16s ease;
+}
+
+button:hover:not(:disabled),
+#runBtn:hover:not(:disabled),
+#startBtn:hover:not(:disabled) {
+    background: var(--btn-hover);
+}
+
+button:active:not(:disabled),
+#runBtn:active:not(:disabled),
+#startBtn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Top-Right Volunteer Lock Button */
+#lockContainer {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+}
+
+#coordinatorBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-focus);
+    border-radius: 50%;
+    transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
+}
+
+#coordinatorBtn:hover:not(:disabled) {
+    background: var(--bg-hover);
+    border-color: var(--text-primary);
+}
+
+/* ----------------------------------------------------
+ * COORDINATOR PASSWORD MODAL OVERRIDES
+ * (Restyles the JS-created modal to match the B&W UI)
+ * ---------------------------------------------------- */
+div:has(> #coordPassInput) {
+    background: #121212 !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85) !important;
+}
+
+div:has(> #coordPassInput) h3 {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    font-size: 1.15rem;
+}
+
+#coordPassInput {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 9999px !important;
+    padding: 12px 16px !important;
+}
+
+#coordPassInput:focus {
+    border-color: var(--border-focus) !important;
+}
+
+#coordError {
+    color: var(--color-error) !important;
+}
+
+#coordCancelBtn {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-subtle) !important;
+}
+
+#coordCancelBtn:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+#coordSubmitBtn {
+    background: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    border-color: var(--btn-bg) !important;
+}
+
+/* ----------------------------------------------------
+ * UTILITIES & MOBILE OPTIMIZATION
+ * ---------------------------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 14px 10px;
+        justify-content: flex-start;
+    }
+
+    #gameScreen,
+    #regScreen,
+    #endScreen {
+        padding: 24px 14px;
+    }
+
+    #regScreen,
+    #endScreen {
+        margin: auto 0;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.82rem;
+    }
+
+    .stats-bar {
+        gap: 16px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    pre#codeProblem {
+        padding: 16px;
+        font-size: 0.93rem;
+        border-radius: 14px;
+    }
+
+    /* 16px prevents automatic zoom-in on iOS Safari when tapping inputs */
+    textarea#participantCode,
+    input[type="text"],
+    input[type="password"] {
+        font-size: 16px;
+    }
+
+    textarea#participantCode {
+        height: 135px;
+        padding: 14px 16px;
+    }
+
+    button,
+    #runBtn,
+    #startBtn {
+        width: 100%;
+        padding: 13px 20px;
+    }
+
+    #lockContainer {
+        top: 16px;
+        right: 12px;
+    }
+
+    #coordinatorBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #gameScreen,
+    #regScreen,
+    #endScreen,
+    #outputBox {
+        animation: none;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
